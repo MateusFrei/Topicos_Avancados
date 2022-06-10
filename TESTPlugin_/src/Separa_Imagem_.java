@@ -7,8 +7,6 @@ public class Separa_Imagem_  implements PlugIn {
     public void run(String arg) {
         
         ImagePlus imagem = IJ.getImage();
-        IJ.run(imagem, "8-bit", "");
-
         
         ImagePlus ImagemR = IJ.createImage("ImagemR", "8-bit", imagem.getWidth(), imagem.getHeight(), 1);       
         ImagePlus ImagemG = IJ.createImage("ImagemG", "8-bit", imagem.getWidth(), imagem.getHeight(), 1);        
@@ -20,10 +18,10 @@ public class Separa_Imagem_  implements PlugIn {
         ImageProcessor processadorR = ImagemR.getProcessor(); 
         for(int x = 0; x < processadorR.getWidth(); x++) {
         	for(int y = 0; y < processadorR.getHeight(); y++) {
-        		processadorR.putPixel(x, y, processadorR.getPixel(x, y) - processador.getPixel(x, y));
+        		processadorR.putPixel(x, y, processador.getPixel(x, y, null) [0]);
         	}
         }
-//        IJ.run(ImagemR, "Red", "");
+        IJ.run(ImagemR, "Red", "");
         ImagemR.updateAndDraw();
         ImagemR.show();
 
@@ -31,10 +29,10 @@ public class Separa_Imagem_  implements PlugIn {
         ImageProcessor processadorG = ImagemG.getProcessor();
         for(int x = 0; x < processadorG.getWidth(); x++) {
         	for(int y = 0; y < processadorG.getHeight(); y++) {
-        		processadorG.putPixel(x, y, processadorG.getPixel(x, y) - processador.getPixel(x, y));
+        		processadorG.putPixel(x, y, processador.getPixel(x, y, null) [1]);
         	}
         }
-//        IJ.run(ImagemG, "Green", "");
+        IJ.run(ImagemG, "Green", "");
         ImagemG.updateAndDraw();
         ImagemG.show();
 
@@ -42,11 +40,12 @@ public class Separa_Imagem_  implements PlugIn {
         ImageProcessor processadorB = ImagemB.getProcessor();        
         for(int x = 0; x < processadorB.getWidth(); x++) {
         	for(int y = 0; y < processadorB.getHeight(); y++) {
-        		processadorB.putPixel(x, y, processadorB.getPixel(x, y) - processador.getPixel(x, y));
+        		processadorB.putPixel(x, y, processador.getPixel(x, y, null) [2]);
         	}
         }
-//        IJ.run(ImagemB, "Blue", "");
+        IJ.run(ImagemB, "Blue", "");
         ImagemB.updateAndDraw();
         ImagemB.show();
+        imagem.hide();
     }
 }
